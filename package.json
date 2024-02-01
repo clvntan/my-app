@@ -13,6 +13,7 @@
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/eslint": "8.56.0",
     "autoprefixer": "^10.4.17",
     "daisyui": "^4.6.1",
@@ -30,5 +31,9 @@
   "description": "Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).",
   "main": "svelte.config.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "humanize-plus": "^1.8.2",
+    "svelte-markdown": "^0.4.1"
+  }
 }

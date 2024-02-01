@@ -8,9 +8,9 @@ export default {
     //   'mono': ['ui-monospace', 'SFMono-Regular'],
     extend: {},
   },
-  plugins: [require("daisyui")],
+  plugins: [require('@tailwindcss/typography'), require("daisyui")],
   daisyui: {
-    themes: ["acid", "dim", "cupcake"], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
+    themes: ["nord", "dim", "acid"], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
     darkTheme: "dim", // name of one of the included themes for dark mode
     base: true, // applies background color and foreground color for root element by default
     styled: true, // include daisyUI colors and design decisions for all components
