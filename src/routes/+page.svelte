@@ -3,8 +3,9 @@
   export let data;
 </script>
 
-<h1 class="text-center text-xl font-bold">Find Your Next Job</h1>
 
+<h1 class="text-center text-xl font-bold">Find Your Next Job</h1>
+<div class="mx-10">
 <div class="overflow-x-auto w-full">
   {#each data.jobs as job}
       <div class="flex flex-col mt-10">
@@ -31,4 +32,5 @@
           </div>
       </div>
   {/each}
+</div>
 </div>

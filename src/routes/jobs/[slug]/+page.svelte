@@ -1,10 +1,17 @@
 <script>
     import SvelteMarkdown from 'svelte-markdown';
     import humanize from 'humanize-plus';
+	import { getTokenFromLocalStorage } from '../../../utils/auth.js';
     export let data;
+
+function editButton() {
+    goto("/jobs/update")
+}
+
 </script>
 
-<div class="mt-10">
+
+<div class="container mx-auto px-8 lg:px-0 mt-10">
     <div class="flex">
         <div class="flex-1">
             <h1 class="text-3xl font-extrabold">{data.job.title}</h1>
@@ -12,7 +19,7 @@
         </div>
     </div>
 
-    <div class="flex flex-row w-full mt-8">
+    <div class="flex flex-row mt-20">
         <div class="basis-2/3 prose max-w-none w-full">
             <h2 class="text-xl font-thin">Description</h2>
             <SvelteMarkdown source={data.job.description} />
@@ -33,6 +40,9 @@
                     data.job.maxAnnualCompensation
                 )}
             </p>
+            <div class="mt-8">
+                <button on:click={editButton} class="btn btn-md">Edit</button>
+        </div>
         </div>
     </div>
 </div>
