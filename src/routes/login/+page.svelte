@@ -29,6 +29,9 @@
 
 
   <h1 class="text-center text-xl font-bold">Log In To Account</h1>
+  <div class="text-center">
+    <a class="link-hover italic text-xs" href="/users/new">Don't have an account? Click here to sign up one instead.</a>
+</div>
   <div class="flex justify-center items-center mt-8">
       <form on:submit={userLogin} class="w-1/3">
           <div class="form-control w-full">

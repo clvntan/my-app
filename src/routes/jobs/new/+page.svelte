@@ -4,10 +4,6 @@
     import { getUserId } from './../../../utils/auth.js';
     let formErrors = "";
   
-    async function postJob() {
-    //   goto(`/jobs/${collectionId}`);
-    goto("/")
-    }
 
     async function createJob(evt) {
         evt.preventDefault();
@@ -34,17 +30,17 @@
         body: JSON.stringify(jobData)
       });
 
+      const res = await resp.json();
       if (resp.status == 200) {
-        postJob()
+        goto(`/jobs/${res.id}`)
     } else {
-        const res = await resp.json();
         formErrors = res.data;
       }
     }
 </script>
 
 
-    <h1 class="text-center text-xl font-bold">Post A Job</h1>
+    <h1 class="text-center text-xl font-bold">Create A Job</h1>
         <div class="container mx-auto px-8 lg:px-0 mt-10">
             <form on:submit={createJob}>
             <div class="form-control mx-60">
@@ -128,7 +124,7 @@
                 </label> -->
             </div>
             <div class="form-control mx-60 mt-8">
-                <button class="btn btn-md" type="submit">
+                <button class="btn btn-secondary" type="submit">
                     Post Job
                 </button>
             </form>

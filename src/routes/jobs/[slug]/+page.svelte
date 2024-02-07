@@ -1,11 +1,12 @@
 <script>
     import SvelteMarkdown from 'svelte-markdown';
     import humanize from 'humanize-plus';
-	import { getTokenFromLocalStorage } from '../../../utils/auth.js';
+	import { getUserId } from '../../../utils/auth.js';
+    import {goto} from '$app/navigation'
     export let data;
 
 function editButton() {
-    goto("/jobs/update")
+    goto(`/jobs/${data.job.id}/update`);
 }
 
 </script>
@@ -41,7 +42,9 @@ function editButton() {
                 )}
             </p>
             <div class="mt-8">
-                <button on:click={editButton} class="btn btn-md">Edit</button>
+                {#if data.job.user == getUserId() }
+                <button on:click={editButton} class="btn btn-outline btn-secondary">Edit</button>
+                {/if}
         </div>
         </div>
     </div>
