@@ -3,10 +3,13 @@
   export let data;
 </script>
 
+<div class="relative h-80 flex justify-center items-center">
+  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/4022041/pexels-photo-4022041.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); z-index: 0;"></div>
+  <h1 class="text-center text-4xl font-bold relative z-10" style="color: white;">Find Your Next Job</h1>
+</div>
 
-<h1 class="text-center text-xl font-bold">Find Your Next Job</h1>
-<div class="mx-10">
-<div class="overflow-x-auto w-full">
+<div class="container mx-auto flex justify-center items-center">
+<div class="overflow-x-auto">
   {#each data.jobs as job}
       <div class="flex flex-col mt-10">
           <div>
@@ -27,8 +30,8 @@
             </div>
           </div>
 
-          <div class="mt-4 ">
-              {job.description.slice(0, 240)}...
+          <div class="mt-4">
+              {job.description.slice(0, 150)}...
           </div>
       </div>
   {/each}

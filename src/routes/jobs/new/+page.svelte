@@ -2,11 +2,14 @@
  import { PUBLIC_BACKEND_BASE_URL } from '$env/static/public';
     import { goto } from '$app/navigation';
     import { getUserId } from './../../../utils/auth.js';
+
     let formErrors = "";
-  
+    let clicked = false; // set 'false' as a default status
 
     async function createJob(evt) {
         evt.preventDefault();
+        clicked = true; // if it's true it will trigger the loading status
+
     const getLocalId = getUserId();
 
     const jobData = {
@@ -35,6 +38,7 @@
         goto(`/jobs/${res.id}`)
     } else {
         formErrors = res.data;
+        clicked = false;
       }
     }
 </script>
@@ -43,7 +47,7 @@
     <h1 class="text-center text-xl font-bold">Create A Job</h1>
         <div class="container mx-auto px-8 lg:px-0 mt-10">
             <form on:submit={createJob}>
-            <div class="form-control mx-60">
+            <div class="form-control w-full">
                 <label class="label" for="title">
                     <span class="label-text">Job Title</span>
                 </label>
@@ -52,7 +56,7 @@
                     <span class="label-texxt-alt text-red-500">Missing required value.</span>
                 </label> -->
             </div>
-            <div class="form-control mx-60">
+            <div class="form-control mw-full">
                 <label class="label" for="title">
                     <span class="label-text">Min. Annual Compensation</span>
                 </label>
@@ -65,7 +69,7 @@
                     <span class="label-text-alt">per annum</span>
                 </label>
             </div>
-            <div class="form-control mx-60">
+            <div class="form-control w-full">
                 <label class="label" for="title">
                     <span class="label-text">Max. Annual Compensation</span>
                 </label>
@@ -78,7 +82,7 @@
                     <span class="label-text-alt">per annum</span>
                 </label>
             </div>
-            <div class="form-control mx-60">
+            <div class="form-control w-full">
                 <label class="label" for="salary">
                     <span class="label-text">Company Name</span>
                 </label>
@@ -87,7 +91,7 @@
                     <span class="label-texxt-alt text-red-500">Missing required value.</span>
                 </label> -->
             </div>
-            <div class="form-control mx-60">
+            <div class="form-control w-full">
                 <label class="label" for="salary">
                     <span class="label-text">Job Location</span>
                 </label>
@@ -96,7 +100,7 @@
                     <span class="label-texxt-alt text-red-500">Missing required value.</span>
                 </label> -->
             </div>
-            <div class="form-control mx-60">
+            <div class="form-control w-full">
                 <label class="label" for="description">
                     <span class="label-text">Description</span>
                 </label>
@@ -105,7 +109,7 @@
                     <span class="label-texxt-alt text-red-500">Missing required value.</span>
                 </label> -->
             </div>
-            <div class="form-control mx-60">
+            <div class="form-control w-full">
                 <label class="label" for="requirements">
                     <span class="label-text">Requirements</span>
                 </label>
@@ -114,7 +118,7 @@
                     <span class="label-texxt-alt text-red-500">Missing required value.</span>
                 </label> -->
             </div>
-            <div class="form-control mx-60">
+            <div class="form-control w-full">
                 <label class="label" for="application-instruction">
                     <span class="label-text">Application Instruction</span>
                 </label>
@@ -123,10 +127,22 @@
                     <span class="label-texxt-alt text-red-500">Missing required value.</span>
                 </label> -->
             </div>
-            <div class="form-control mx-60 mt-8">
+
+            {#if clicked}
+            <button class="btn btn-secondary w-full mt-8">
+                <span class="loading loading-spinner"></span>
+            loading...
+            </button>
+            {:else}
+            <button class="btn btn-secondary w-full mt-8" type="submit">
+            Post Job
+             </button>
+            {/if}
+            
+            <!-- <div class="form-control mx-60 mt-8">
                 <button class="btn btn-secondary" type="submit">
                     Post Job
-                </button>
+                </button> -->
             </form>
         </div>
     

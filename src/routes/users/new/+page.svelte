@@ -2,14 +2,17 @@
     import { PUBLIC_BACKEND_BASE_URL } from '$env/static/public';
     import { goto } from '$app/navigation';
     import { authenticateUser } from './../../../utils/auth.js';
+
     let formErrors = {};
+    let clicked = false; // set 'false' as a default status
   
     function postSignUp() {
       goto('/jobs/new');
     }
   
     async function createUser(evt) {
-      evt.preventDefault()
+      evt.preventDefault();
+      clicked = true;  // if it's true it will trigger the loading status
   
       if (evt.target['password'].value != evt.target['password-confirmation'].value) {
         formErrors['password'] = { message: 'Password confirmation does not match' };
@@ -43,14 +46,16 @@
       } else {
         const res = await resp.json();
         formErrors = res.data;
+        clicked = false;  // if it's false it won't trigger the loading status
       }
     }
   </script>
+<div role="alert" class="container mx-auto flex justify-center items-center alert alert-error shadow-lg">
+  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+  <span>Please sign up first.</span>
+</div>
+  <h1 class="text-center text-xl mt-8">Create an Account to Post a Job</h1>
 
-  <h1 class="text-center text-xl">Create an Account to Post a Job</h1>
-  <div class="text-center">
-      <a class="link-hover italic text-xs" href="/login">Already have an account? Click here to login instead.</a>
-  </div>
   <div class="flex justify-center items-center mt-8">
       <form on:submit={createUser} class="w-1/3">
           <div class="form-control w-full">
@@ -81,7 +86,7 @@
               <label class="label" for="password">
                   <span class="label-text">Password</span>
               </label>
-              <input type="password" name="password" placeholder="" class="input input-bordered w-full" required />
+              <input type="password" name="password" placeholder="A minimum of 8 characters, including both letters and numbers" class="input input-bordered w-full" required />
               {#if 'password' in formErrors}
               <label class="label" for="password">
                   <span class="label-text-alt text-red-500">{formErrors['password'].message}</span>
@@ -93,7 +98,7 @@
               <label class="label" for="password">
                   <span class="label-text">Confirm Password</span>
               </label>
-              <input type="password" name="password-confirmation" placeholder="" class="input input-bordered w-full" required />
+              <input type="password" name="password-confirmation" placeholder="Repeat passwords" class="input input-bordered w-full" required />
               {#if 'password' in formErrors}
               <label class="label" for="password">
                   <span class="label-text-alt text-red-500">{formErrors['password'].message}</span>
@@ -101,8 +106,18 @@
               {/if}
           </div>
   
-          <div class="form-control w-full mt-4">
-              <button class="btn btn-md">Create an Account</button>
-          </div>
+          {#if clicked}
+          <button class="btn btn-outline w-full mt-4">
+            <span class="loading loading-spinner"></span>
+            loading...
+          </button>
+          {:else}
+              <button class="btn btn-md w-full mt-4">Create an Account</button>
+          {/if}
+
+          <div class="text-center mt-5">
+            <a class="link-hover italic text-xs" href="/login">Already have an account? Click here to login instead.</a>
+        </div>
+
       </form>
   </div>
