@@ -2,6 +2,7 @@
  import { PUBLIC_BACKEND_BASE_URL } from '$env/static/public';
     import { goto } from '$app/navigation';
     import { getUserId } from './../../../utils/auth.js';
+    import { createJobAlert, createJobFailedAlert } from '../../../utils/alert.js';
 
     let formErrors = "";
     let clicked = false; // set 'false' as a default status
@@ -36,8 +37,10 @@
       const res = await resp.json();
       if (resp.status == 200) {
         goto(`/jobs/${res.id}`)
+        createJobAlert();
     } else {
-        formErrors = res.data;
+        // formErrors = res.data;
+        createJobFailedAlert();
         clicked = false;
       }
     }

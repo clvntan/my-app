@@ -2,6 +2,7 @@
 	import { PUBLIC_BACKEND_BASE_URL } from '$env/static/public';
 	import { authenticateUser } from '../../utils/auth.js';
 	import { goto } from '$app/navigation';
+	import { logInErrorAlert, logInSucAlert } from '../../utils/alert.js';
 
 	let formErrors = '';
 	let clicked = false; // set 'false' as a default status
@@ -22,12 +23,14 @@
 		const res = await authenticateUser(userData.username, userData.password);
 
 		if (res.success) {
+			logInSucAlert();
 			postLogin();
 		} else {
-			formErrors = res.res.message;
+			logInErrorAlert();
+			// formErrors = res.res.message;
 			clicked = false; // if it's false it won't trigger the loading status
-		}
 	}
+}
 
 	let sayHi = false;
 	let name = '';
@@ -37,25 +40,6 @@
 		}
 	}
 </script>
-
-<div
-	role="alert"
-	class="container mx-auto flex justify-center items-center alert alert-warning shadow-lg"
->
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		class="stroke-current shrink-0 h-6 w-6"
-		fill="none"
-		viewBox="0 0 24 24"
-		><path
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
-			d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-		/></svg
-	>
-	<span>Incorrect username or password.</span>
-</div>
 
 <h1 class="text-center text-xl font-bold mt-8">Log In To Account</h1>
 

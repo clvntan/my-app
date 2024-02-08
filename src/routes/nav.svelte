@@ -1,6 +1,13 @@
 <script>
 	import { isLoggedIn, logOut, logIn } from '/Users/Calvin/Next Academy/my-app/src/utils/auth.js';
 	import { goto } from '$app/navigation';
+	import { postJobLogInAlert } from '../utils/alert.js';
+
+	function postJobLogIn() {
+		postJobLogInAlert();
+		goto("/users/new")
+	}
+
 </script>
 
 <div style="display: contents">
@@ -13,7 +20,7 @@
 			{#if $logIn}
 					<button class="btn mx-5" on:click={()=> goto ('/jobs/new')}>Post a Job</button>
 			{:else}
-					<button class="btn mx-5"on:click={()=> goto ('/users/new')}>Post a Job</button>
+					<button class="btn mx-5"on:click={postJobLogIn}>Post a Job</button>
 			{/if}
 
 			<!--Write a condition for log in and log out button-->

@@ -8,6 +8,8 @@
 	function editButton() {
 		goto(`/jobs/${data.job.id}/update`);
 	}
+
+	
 </script>
 
 <div class="container mx-auto px-8 lg:px-0 mt-10">
