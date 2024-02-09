@@ -1,24 +1,29 @@
 <script>
+	// Importing necessary functions and constants from other modules
 	import { PUBLIC_BACKEND_BASE_URL } from '$env/static/public';
 	import { goto } from '$app/navigation';
 	import { getTokenFromLocalStorage, getUserId } from '../../../../utils/auth.js';
 
+	// Declaring variables
 	export let data;
 	let formErrors = '';
 	let clicked = false;
 
+	// Function to update job details
 	async function updateJob() {
 		goto(`/jobs/${data.job.id}`);
-		//    goto("/")
 	}
 
+	// Function to handle job editing form submission
 	async function editJob(evt) {
-		evt.preventDefault();
-		clicked = true;
+		evt.preventDefault(); // Prevent default form submission behavior
+		clicked = true; // Indicates that the submit button has been clicked
 
+		// Retrieve user ID and token from local storage
 		const getLocalId = getUserId();
 		const getToken = getTokenFromLocalStorage();
 
+		// Extract job data from form inputs
 		const jobData = {
 			user: getLocalId,
 			title: evt.target['title'].value,
@@ -31,6 +36,7 @@
 			employer: evt.target['employer'].value
 		};
 
+		// Send a PATCH request to update the job record
 		const resp = await fetch(
 			PUBLIC_BACKEND_BASE_URL + `/api/collections/jobs/records/${data.job.id}`,
 			{
@@ -44,22 +50,28 @@
 			}
 		);
 
-		//  const res = await resp.json();
+		// Handle response
 		if (resp.status == 200) {
-			updateJob();
-			// goto(`/jobs/${res.id}`)
+			updateJob(); // If successful, update the job details and navigate to the job page
 		} else {
-			const res = await resp.json();
-			formErrors = res.data;
-			clicked = false;
+			const res = await resp.json(); // If there's an error, parse the response body as JSON
+			formErrors = res.data; // Set formErrors variable with the error data
+			clicked = false; // Reset clicked status
 		}
 	}
 </script>
 
+<!-- HTML form for updating job details -->
 <h1 class="text-center text-xl font-bold">Update Job Details</h1>
 <div class="container mx-auto px-8 lg:px-0 mt-10">
-	<form on:submit={editJob}>
+	<form on:submit={editJob}> <!-- Call editJob function when form is submitted -->
+		<!-- Input fields for job details -->
+		<!-- Data values are populated from the 'data' variable passed to the component -->
+		<!-- Users can edit these fields -->
+		<!-- The 'value' attribute binds each input to the corresponding property of 'data.job' -->
+		<!-- The 'name' attribute is used to access the input values in the editJob function -->
 		<div class="form-control mw-full">
+			<!-- Job Title -->
 			<label class="label" for="title">
 				<span class="label-text">Job Title</span>
 			</label>
@@ -70,11 +82,9 @@
 				placeholder="Software Engineer"
 				class="input input-bordered w-full"
 			/>
-			<!-- <label class="label" for="title">
-                       <span class="label-texxt-alt text-red-500">Missing required value.</span>
-                   </label> -->
 		</div>
 		<div class="form-control w-full">
+			<!-- min. salary -->
 			<label class="label" for="title">
 				<span class="label-text">Min. Annual Compensation</span>
 			</label>
@@ -85,16 +95,14 @@
 				placeholder="40000"
 				class="input input-bordered w-full"
 			/>
-			<!-- <label class="label" for="minAnnualCompensation">
-                       <span class="label-texxt-alt text-red-500">Missing required value.</span>
-                   </label> -->
 			<label class="label" for="salary">
 				<span class="label-text-alt">USD</span>
 				<span class="label-text-alt">per annum</span>
 			</label>
 		</div>
 		<div class="form-control mw-full">
-			<label class="label" for="title">
+			<!-- max. salary -->
+			<label class="label" for="salary">
 				<span class="label-text">Max. Annual Compensation</span>
 			</label>
 			<input
@@ -104,16 +112,14 @@
 				placeholder="40000"
 				class="input input-bordered w-full"
 			/>
-			<!-- <label class="label" for="maxAnnualCompensation">
-                       <span class="label-texxt-alt text-red-500">Missing required value.</span>
-                   </label> -->
 			<label class="label" for="salary">
 				<span class="label-text-alt">USD</span>
 				<span class="label-text-alt">per annum</span>
 			</label>
 		</div>
 		<div class="form-control w-full">
-			<label class="label" for="salary">
+			<!-- Employer -->
+			<label class="label" for="title">
 				<span class="label-text">Company Name</span>
 			</label>
 			<input
@@ -123,12 +129,10 @@
 				placeholder="e.g. Facebook"
 				class="input input-bordered w-full"
 			/>
-			<!-- <label class="label" for="employer">
-                       <span class="label-texxt-alt text-red-500">Missing required value.</span>
-                   </label> -->
 		</div>
 		<div class="form-control w-full">
-			<label class="label" for="salary">
+			<!-- Job Location -->
+			<label class="label" for="title">
 				<span class="label-text">Job Location</span>
 			</label>
 			<input
@@ -138,11 +142,9 @@
 				placeholder="e.g. Singapore"
 				class="input input-bordered w-full"
 			/>
-			<!-- <label class="label" for="location">
-                       <span class="label-texxt-alt text-red-500">Missing required value.</span>
-                   </label> -->
 		</div>
 		<div class="form-control w-full">
+			<!-- Job Description -->
 			<label class="label" for="description">
 				<span class="label-text">Description</span>
 			</label>
@@ -152,11 +154,9 @@
 				name="description"
 				placeholder
 			></textarea>
-			<!-- <label class="label" for="description">
-                       <span class="label-texxt-alt text-red-500">Missing required value.</span>
-                   </label> -->
 		</div>
 		<div class="form-control w-full">
+			<!-- Requirement -->
 			<label class="label" for="requirements">
 				<span class="label-text">Requirements</span>
 			</label>
@@ -166,11 +166,9 @@
 				name="requirements"
 				placeholder
 			></textarea>
-			<!-- <label class="label" for="requirements">
-                       <span class="label-texxt-alt text-red-500">Missing required value.</span>
-                   </label> -->
 		</div>
 		<div class="form-control w-full">
+			<!-- Application Instruction -->
 			<label class="label" for="application-instruction">
 				<span class="label-text">Application Instruction</span>
 			</label>
@@ -180,20 +178,16 @@
 				name="applicationInstructions"
 				placeholder
 			></textarea>
-			<!-- <label class="label" for="applicationInstructions">
-                       <span class="label-texxt-alt text-red-500">Missing required value.</span>
-                   </label> -->
 		</div>
 
-		{#if clicked}
+		<!-- Submit button -->
+		{#if clicked} <!-- Show loading state if the submit button was clicked -->
 			<button class="btn btn-secondary w-full mt-8">
 				<span class="loading loading-spinner"></span>
 				loading...
 			</button>
-		{:else}
+		{:else} <!-- Show the regular submit button if not clicked -->
 			<button class="btn btn-secondary w-full mt-8" type="submit"> Post Job </button>
 		{/if}
 	</form>
 </div>
-
-<div class="mt-28"></div>

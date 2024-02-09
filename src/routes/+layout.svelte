@@ -1,12 +1,17 @@
 <script>
-    import "../app.css";
-    import Navigation from "./nav.svelte"
-    import NewAlert from "./alert.svelte"
+  // Importing CSS file to apply styles to the component
+  import "../app.css";
 
-  </script>
-  
+  // Importing Svelte components: Navigation and NewAlert
+  import Navigation from "./nav.svelte";
+  import NewAlert from "./alert.svelte";
+</script>
 
-  <Navigation />
-  <NewAlert />
-  <slot />
+<!-- Render the Navigation component -->
+<Navigation />
 
+<!-- Render the NewAlert component -->
+<NewAlert />
+
+<!-- Render the content provided within the slot -->
+<slot />
