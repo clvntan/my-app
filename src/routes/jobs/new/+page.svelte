@@ -132,12 +132,12 @@
             </div>
 
             {#if clicked}
-            <button class="btn btn-secondary w-full mt-8">
+            <button class="btn btn-accent w-full mt-8">
                 <span class="loading loading-spinner"></span>
             loading...
             </button>
             {:else}
-            <button class="btn btn-secondary w-full mt-8" type="submit">
+            <button class="btn btn-accent w-full mt-8" type="submit">
             Post Job
              </button>
             {/if}

@@ -20,7 +20,7 @@
     <!-- Iterating over job data to create job cards -->
     {#each data.jobs as job}
     <div class="flex justify-center">
-      <div class="card w-96 md:w-80 lg:w-80 bg-base-100 bg-white text-secondary-content shadow-xl" style="height: 400px; padding: 10px; margin: 20px;">
+      <div class="card w-96 md:w-80 lg:w-80 bg-white text-secondary-content shadow-xl" style="height: 400px; padding: 10px; margin: 20px;">
         <div class="card-body">
           <!-- Job title -->
           <h2 class="card-title">{job.title}</h2>

@@ -2,15 +2,46 @@
 	// Importing necessary modules and functions
 	import SvelteMarkdown from 'svelte-markdown';
 	import humanize from 'humanize-plus';
-	import { getUserId } from '../../../utils/auth.js';
+	import { getTokenFromLocalStorage, getUserId } from '../../../utils/auth.js';
 	import { goto } from '$app/navigation';
+	import { PUBLIC_BACKEND_BASE_URL } from '$env/static/public';
 
 	// Declaring a variable to store data passed to the component
 	export let data;
+	let clicked = false; // set 'false' as a default status
 
 	// Function to navigate to the job update page
 	function editButton() {
 		goto(`/jobs/${data.job.id}/update`);
+	}
+
+	// Function to navigate to homepage
+	function afterDeletedJob() {
+		goto(`/`);
+	}
+
+	// Function to delete job post
+	async function deleteJob() {
+		const getToken = getTokenFromLocalStorage();
+		clicked = true;
+
+		const resp = await fetch(PUBLIC_BACKEND_BASE_URL + `/api/collections/jobs/records/${data.job.id}`, {
+				method: 'DELETE',
+				mode: 'cors',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': getToken
+				},
+			}
+		);
+
+		if (resp.status == 204) {
+			afterDeletedJob();
+		} else {
+			const res = await resp.json();
+			formErrors = res.message;
+			clicked = false;
+		}
 	}
 </script>
 
@@ -49,7 +80,11 @@
 			<div class="mt-8">
 				<!-- Displaying edit button if the logged-in user is the creator of the job -->
 				{#if data.job.user == getUserId()}
-					<button on:click={editButton} class="btn btn-outline btn-secondary">Edit</button>
+					<button on:click={editButton} class="btn btn-outline btn-accent mr-4">Edit</button>
+				{/if}
+				<!-- Displaying delete button if the logged-in user is the creator of the job -->
+				{#if data.job.user == getUserId()}
+					<button on:click={deleteJob} class="btn btn-outline btn-accent mt-4">Delete</button>
 				{/if}
 			</div>
 		</div>
