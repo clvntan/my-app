@@ -6,7 +6,7 @@
 
 	// Declaring variables
 	export let data;
-	let formErrors = '';
+	let formErrors = {};
 	let clicked = false;
 
 	// Function to update job details
@@ -82,6 +82,11 @@
 				placeholder="Software Engineer"
 				class="input input-bordered w-full"
 			/>
+			{#if 'title' in formErrors}
+            <label class="label" for="title">
+                <span class="label-text-alt text-red-500">{formErrors['title'].message}</span>
+            </label>
+            {/if}
 		</div>
 		<div class="form-control w-full">
 			<!-- min. salary -->
@@ -99,6 +104,11 @@
 				<span class="label-text-alt">USD</span>
 				<span class="label-text-alt">per annum</span>
 			</label>
+			{#if 'minAnnualCompensation' in formErrors}
+            <label class="label" for="minAnnualCompensation">
+                <span class="label-text-alt text-red-500">{formErrors['minAnnualCompensation'].message}</span>
+            </label>
+            {/if}
 		</div>
 		<div class="form-control mw-full">
 			<!-- max. salary -->
@@ -116,6 +126,11 @@
 				<span class="label-text-alt">USD</span>
 				<span class="label-text-alt">per annum</span>
 			</label>
+			{#if 'maxAnnualCompensation' in formErrors}
+            <label class="label" for="maxAnnualCompensation">
+                <span class="label-text-alt text-red-500">{formErrors['maxAnnualCompensation'].message}</span>
+            </label>
+            {/if}
 		</div>
 		<div class="form-control w-full">
 			<!-- Employer -->
@@ -129,6 +144,11 @@
 				placeholder="e.g. Facebook"
 				class="input input-bordered w-full"
 			/>
+			{#if 'employer' in formErrors}
+            <label class="label" for="employer">
+                <span class="label-text-alt text-red-500">{formErrors['employer'].message}</span>
+            </label>
+            {/if}
 		</div>
 		<div class="form-control w-full">
 			<!-- Job Location -->
@@ -142,6 +162,11 @@
 				placeholder="e.g. Singapore"
 				class="input input-bordered w-full"
 			/>
+			{#if 'location' in formErrors}
+            <label class="label" for="location">
+                <span class="label-text-alt text-red-500">{formErrors['location'].message}</span>
+            </label>
+            {/if}
 		</div>
 		<div class="form-control w-full">
 			<!-- Job Description -->
@@ -154,6 +179,11 @@
 				name="description"
 				placeholder
 			></textarea>
+			{#if 'description' in formErrors}
+            <label class="label" for="description">
+                <span class="label-text-alt text-red-500">{formErrors['description'].message}</span>
+            </label>
+            {/if}
 		</div>
 		<div class="form-control w-full">
 			<!-- Requirement -->
@@ -166,6 +196,11 @@
 				name="requirements"
 				placeholder
 			></textarea>
+			{#if 'requirements' in formErrors}
+            <label class="label" for="requirements">
+                <span class="label-text-alt text-red-500">{formErrors['requirements'].message}</span>
+            </label>
+            {/if}
 		</div>
 		<div class="form-control w-full">
 			<!-- Application Instruction -->
@@ -178,6 +213,11 @@
 				name="applicationInstructions"
 				placeholder
 			></textarea>
+			{#if 'applicationInstructions' in formErrors}
+            <label class="label" for="applicationInstructions">
+                <span class="label-text-alt text-red-500">{formErrors['applicationInstructions'].message}</span>
+            </label>
+            {/if}
 		</div>
 
 		<!-- Submit button -->
