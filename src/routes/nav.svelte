@@ -1,6 +1,6 @@
 <script>
     // Importing functions from auth.js and alert.js
-    import { isLoggedIn, logOut, logIn } from '/Users/Calvin/Next Academy/my-app/src/utils/auth.js';
+    import { logOut, logIn } from '../utils/auth.js';
     import { goto } from '$app/navigation';
     import { postJobLogInAlert } from '../utils/alert.js';
 
